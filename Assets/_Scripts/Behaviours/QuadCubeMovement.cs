@@ -6,8 +6,6 @@ public class QuadCubeMovement : MonoBehaviour {
     [SerializeField]
     private float _speed = 300f;
     [SerializeField]
-    private FacesData _faces;
-    [SerializeField]
     private QuadCubeFacesController _facesController;
 
     [SerializeField]
@@ -125,43 +123,14 @@ public class QuadCubeMovement : MonoBehaviour {
                 var tileFaceController = hit.transform.GetComponent<TileFaceController>();
                 if (tileFaceController != null) {
                     tileFaceController.SetTileType(TileType.Sum);
+
+                    var downwardFace = _facesController.GetDownwardFace();
+                    Messenger<int>.Broadcast(GameEvent.ADD_TO_SUM, downwardFace.GetFaceValue());
                 }
             }
         }
 
-
         _canRaycast = false;
-    }
-
-    Vector3 GetDownwardFace() {
-        // Check what face is parallel to the down direction (in local space)
-        // X-axis
-        if ((int) Vector3.Cross(Vector3.down, transform.right).magnitude == 0) {
-            // Check the actual face that is facing down
-            if (Vector3.Dot(Vector3.down, transform.right) > 0f) {
-                return transform.right;
-            } else {
-                return -transform.right;
-            }
-        }
-        // Y-axis
-        else if ((int) Vector3.Cross(Vector3.down, transform.up).magnitude == 0) {
-            if (Vector3.Dot(Vector3.down, transform.up) > 0f) {
-                return transform.up;
-            } else {
-                return -transform.up;
-            }
-        }
-        // Z-axis
-        else if ((int) Vector3.Cross(Vector3.down, transform.forward).magnitude == 0) {
-            if (Vector3.Dot(Vector3.down, transform.forward) > 0f) {
-                return transform.forward;
-            } else {
-                return -transform.forward;
-            }
-        }
-
-        return Vector3.zero;
     }
 
     void DebugMessage(string msg) {

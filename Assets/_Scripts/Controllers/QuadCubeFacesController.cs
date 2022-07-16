@@ -25,21 +25,6 @@ public class QuadCubeFacesController : MonoBehaviour {
     private GameObject _backFace;
 
     [Space]
-    [Header("Faces Materials")]
-    [SerializeField]
-    private Texture _rightFaceTexture;
-    [SerializeField]
-    private Texture _leftFaceTexture;
-    [SerializeField]
-    private Texture _upFaceTexture;
-    [SerializeField]
-    private Texture _downFaceTexture;
-    [SerializeField]
-    private Texture _frontFaceTexture;
-    [SerializeField]
-    private Texture _backFaceTexture;
-
-    [Space]
     [Header("Faces lookahead")]
     [SerializeField]
     private GameObject _parentLookaheadContainer;
@@ -60,7 +45,6 @@ public class QuadCubeFacesController : MonoBehaviour {
 
     void Start() {
         InitFacesDictionary();
-        SetUpFacesWithMaterials();
         StopSumState();
     }
 
@@ -71,15 +55,6 @@ public class QuadCubeFacesController : MonoBehaviour {
         _faces.Add(Vector3.down, _downFace);
         _faces.Add(Vector3.forward, _frontFace);
         _faces.Add(Vector3.back, _backFace);
-    }
-
-    void SetUpFacesWithMaterials() {
-        _rightFace.GetComponent<Renderer>().material.mainTexture = _rightFaceTexture;
-        _leftFace.GetComponent<Renderer>().material.mainTexture = _leftFaceTexture;
-        _upFace.GetComponent<Renderer>().material.mainTexture = _upFaceTexture;
-        _downFace.GetComponent<Renderer>().material.mainTexture = _downFaceTexture;
-        _frontFace.GetComponent<Renderer>().material.mainTexture = _frontFaceTexture;
-        _backFace.GetComponent<Renderer>().material.mainTexture = _backFaceTexture;
     }
 
     public void StartSumState() {
@@ -152,14 +127,18 @@ public class QuadCubeFacesController : MonoBehaviour {
         }
 
         foreach (GameObject perpendicularFace in perpendicularFaces) {
-            if ((int) Vector3.Dot(Vector3.right, -perpendicularFace.transform.forward) > 0) {
-                _rightLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFace.GetComponent<Renderer>().material.mainTexture;
-            } else if ((int) Vector3.Dot(Vector3.left, -perpendicularFace.transform.forward) > 0) {
-                _leftLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFace.GetComponent<Renderer>().material.mainTexture;
-            } else if ((int) Vector3.Dot(Vector3.forward, -perpendicularFace.transform.forward) > 0) {
-                _frontLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFace.GetComponent<Renderer>().material.mainTexture;
-            } else if ((int) Vector3.Dot(Vector3.back, -perpendicularFace.transform.forward) > 0) {
-                _backLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFace.GetComponent<Renderer>().material.mainTexture;
+            var perpendicularFaceQuadFaceComponent = perpendicularFace.GetComponent<QuadCubeFace>();
+
+            if (perpendicularFaceQuadFaceComponent != null) {
+                if ((int) Vector3.Dot(Vector3.right, -perpendicularFace.transform.forward) > 0) {
+                    _rightLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFaceQuadFaceComponent.GetFaceTexture();
+                } else if ((int) Vector3.Dot(Vector3.left, -perpendicularFace.transform.forward) > 0) {
+                    _leftLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFaceQuadFaceComponent.GetFaceTexture();
+                } else if ((int) Vector3.Dot(Vector3.forward, -perpendicularFace.transform.forward) > 0) {
+                    _frontLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFaceQuadFaceComponent.GetFaceTexture();
+                } else if ((int) Vector3.Dot(Vector3.back, -perpendicularFace.transform.forward) > 0) {
+                    _backLookahead.GetComponent<Renderer>().material.mainTexture = perpendicularFaceQuadFaceComponent.GetFaceTexture();
+                }
             }
         }
 
@@ -169,5 +148,39 @@ public class QuadCubeFacesController : MonoBehaviour {
 
     public void HideLookahead() {
         _parentLookaheadContainer.SetActive(false);
+    }
+
+    public QuadCubeFace GetDownwardFace() {
+        var downwardDirection = Vector3.down;
+
+        // Check what face is parallel to the down direction (in local space)
+        // X-axis
+        if ((int) Vector3.Cross(Vector3.down, transform.right).magnitude == 0) {
+            // Check the actual face that is facing down
+            if (Vector3.Dot(Vector3.down, transform.right) > 0f) {
+                downwardDirection = Vector3.right;
+            } else {
+                downwardDirection = Vector3.left;
+            }
+        }
+        // Y-axis
+        else if ((int) Vector3.Cross(Vector3.down, transform.up).magnitude == 0) {
+            if (Vector3.Dot(Vector3.down, transform.up) > 0f) {
+                downwardDirection = Vector3.up;
+            } else {
+                downwardDirection = Vector3.down;
+            }
+        }
+        // Z-axis
+        else if ((int) Vector3.Cross(Vector3.down, transform.forward).magnitude == 0) {
+            if (Vector3.Dot(Vector3.down, transform.forward) > 0f) {
+                downwardDirection = Vector3.forward;
+            } else {
+                downwardDirection = Vector3.back;
+            }
+        }
+
+        var downwardFace = _faces.ContainsKey(downwardDirection) ? _faces[downwardDirection].GetComponent<QuadCubeFace>() : null;
+        return downwardFace;
     }
 }

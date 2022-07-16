@@ -20,6 +20,7 @@ public class SumTilesManager : MonoBehaviour {
 
     void OnEnable() {
         Messenger.AddListener(GameEvent.START_SUM, StartCountingPoints);
+        Messenger<int>.AddListener(GameEvent.ADD_TO_SUM, UpdatePointsCount);
     }
 
     void StartCountingPoints() {
@@ -31,6 +32,7 @@ public class SumTilesManager : MonoBehaviour {
 
     void OnDisable() {
         Messenger.RemoveListener(GameEvent.START_SUM, StartCountingPoints);
+        Messenger<int>.RemoveListener(GameEvent.ADD_TO_SUM, UpdatePointsCount);
     }
 
     void Start() {
