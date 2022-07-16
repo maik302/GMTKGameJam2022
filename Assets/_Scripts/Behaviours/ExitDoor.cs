@@ -6,7 +6,7 @@ using System.Linq;
 public class ExitDoor : MonoBehaviour {
 
     [SerializeField, SerializeReference]
-    private List<IChallenge> _challenges;
+    private List<SumTilesManager> _challenges;
 
     // Start is called before the first frame update
     void Start() {
@@ -15,7 +15,7 @@ public class ExitDoor : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (_challenges.All(challenge => challenge.IsSolved())) {
+        if (_challenges.All(challenge => challenge.GetScoreReport().IsSolved())) {
             Debug.Log("The exit door is open!");
         }
     }

@@ -14,4 +14,8 @@ public class SumTileDoor : MonoBehaviour {
     public void UpdateText(int points) {
         _pointsText.text = points.ToString();
     }
+
+    public void ChangeTextColor(Color color) {
+        _pointsText.color = color;
+    }
 }

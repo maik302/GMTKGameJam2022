@@ -102,13 +102,6 @@ public class QuadCubeMovement : MonoBehaviour {
         return false;
     }
 
-    void FixedUpdate() {
-        //if (_canRaycast) {
-        //    GetFloorTile();
-        //}
-        //DebugDrawCubeAxis();
-    }
-
     void GetFloorTile() {
         RaycastHit hit;
 
@@ -121,6 +114,7 @@ public class QuadCubeMovement : MonoBehaviour {
             } else if (hit.transform.gameObject.name.Equals("SumTileExit")) {
                 _isInSumState = false;
                 _facesController.StopSumState();
+                Messenger.Broadcast(GameEvent.END_SUM);
             } else if (_isInSumState && hit.transform.gameObject.name.StartsWith("Tile")) {
                 var tileFaceComponent = hit.transform.GetComponent<TileFace>();
                 if (tileFaceComponent != null) {
