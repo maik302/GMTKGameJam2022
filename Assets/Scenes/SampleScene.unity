@@ -775,9 +775,93 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 577262668008987741, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _upFaceTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 5cbf849783562a74bb018b8b998c01f1, type: 3}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _sumTileColor.b
+      value: 0.81960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _sumTileColor.g
+      value: 0.654902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _sumTileColor.r
+      value: 0.043137256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _upFaceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 55f12f6829eadab4eb4189c0cd81157a, type: 2}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _backFaceTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 739a7c7d4a47c2e4e9d3e8b08bdae33b, type: 3}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _downFaceTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 37564f863d9f92e44940fd8a29eacadd, type: 3}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _leftFaceTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 7e3822dbd48e810439329a388abb4e4a, type: 3}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _backFaceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 1a8754187c241b241b0f4eee365afa26, type: 2}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _downFaceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 10aa4db5d55e54c4abbdd00668c6b2d0, type: 2}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _frontFaceTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 45ab604d4fbad02468395be911f5732c, type: 3}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _leftFaceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 94cc91ffca1341e42aec542d4182a130, type: 2}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _rightFaceTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 7005395d160c3e34daf61579351ee0ef, type: 3}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _frontFaceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: da76ec6d87b1aa643bbd55412045de03, type: 2}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _rightFaceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 3f56937f1c145b44b8f61f561a412124, type: 2}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _defaultCubeColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _defaultCubeColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2914930593790377631, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: _defaultCubeColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3755898936609477105, guid: 84966503986188a4c803a84b4b981e05, type: 3}
       propertyPath: m_Name
       value: QuadsCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755898936609477105, guid: 84966503986188a4c803a84b4b981e05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3755898936609477106, guid: 84966503986188a4c803a84b4b981e05, type: 3}
       propertyPath: m_RootOrder

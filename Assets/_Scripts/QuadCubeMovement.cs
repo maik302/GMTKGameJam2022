@@ -24,6 +24,10 @@ public class QuadCubeMovement : MonoBehaviour {
         _isInSumState = false;
     }
 
+    void Start() {
+        _facesController.ShowLookahead();
+    }
+
     void Update() {
         if (!_isMoving) {
             HandleMovement();
@@ -48,6 +52,7 @@ public class QuadCubeMovement : MonoBehaviour {
         _canMoveInDirection = CanMoveInDirection(moveDirection);
 
         if (_canMoveInDirection) {
+            _facesController.HideLookahead();
             StartCoroutine(Roll(moveDirection));
         }
 
@@ -80,6 +85,7 @@ public class QuadCubeMovement : MonoBehaviour {
 
         _canRaycast = true;
         _isMoving = false;
+        _facesController.ShowLookahead();
     }
 
     bool CanMoveInDirection(Vector3 direction) {
@@ -98,8 +104,7 @@ public class QuadCubeMovement : MonoBehaviour {
         if (_canRaycast) {
             GetFloorTile();
         }
-
-        DebugDrawCubeAxis();
+        //DebugDrawCubeAxis();
     }
 
     void GetFloorTile() {
