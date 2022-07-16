@@ -11,9 +11,12 @@ public class QuadCubeMovement : MonoBehaviour {
     [SerializeField]
     private bool _debugMode = false;
 
+    private bool _canRaycast = false;
+    private bool _canMoveInDirection;
     private bool _isMoving;
 
     void Awake() {
+        _canMoveInDirection = false;
         _isMoving = false;
     }
 
@@ -26,16 +29,24 @@ public class QuadCubeMovement : MonoBehaviour {
     void HandleMovement() {
         var verticalAxisValue = Input.GetAxisRaw("Vertical");
         var horizontalAxisValue = Input.GetAxisRaw("Horizontal");
+        Vector3 moveDirection = Vector3.zero;
 
         if (verticalAxisValue > 0) {
-            StartCoroutine(Roll(Vector3.forward));
+            moveDirection = Vector3.forward;
         } else if (verticalAxisValue < 0) {
-            StartCoroutine(Roll(Vector3.back));
+            moveDirection = Vector3.back;
         } else if (horizontalAxisValue > 0) {
-            StartCoroutine(Roll(Vector3.right));
+            moveDirection = Vector3.right;
         } else if (horizontalAxisValue < 0) {
-            StartCoroutine(Roll(Vector3.left));
+            moveDirection = Vector3.left;
         }
+
+        _canMoveInDirection = CanMoveInDirection(moveDirection);
+
+        if (_canMoveInDirection) {
+            StartCoroutine(Roll(moveDirection));
+        }
+
     }
 
     /// <summary>
@@ -64,12 +75,20 @@ public class QuadCubeMovement : MonoBehaviour {
         }
 
         _isMoving = false;
-        _canRaycast = true;
-
-        GetDownwardFace();
     }
 
-    private bool _canRaycast = false;
+    bool CanMoveInDirection(Vector3 direction) {
+        RaycastHit hit;
+
+        DebugDrawRay(transform.position, direction, 1f);
+        if (Physics.Raycast(transform.position, direction, out hit, 1f)) {
+            DebugMessage($"Collider.Tag: {hit.collider.tag}");
+            return hit.collider.CompareTag("Tile");
+        }
+
+        return false;
+    }
+
     void FixedUpdate() {
         if (_canRaycast) {
             GetFloorTile();
@@ -82,7 +101,7 @@ public class QuadCubeMovement : MonoBehaviour {
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity)) {
-            //DebugMessage($"I hit: {hit.transform.gameObject.name}");
+            DebugMessage($"I hit: {hit.transform.gameObject.name}");
         }
 
         _canRaycast = false;
@@ -94,30 +113,24 @@ public class QuadCubeMovement : MonoBehaviour {
         if ((int) Vector3.Cross(Vector3.down, transform.right).magnitude == 0) {
             // Check the actual face that is facing down
             if (Vector3.Dot(Vector3.down, transform.right) > 0f) {
-                DebugMessage($"transform.right is facing the floor");
                 return transform.right;
             } else {
-                DebugMessage($"-transform.right is facing the floor");
                 return -transform.right;
             }
         }
         // Y-axis
         else if ((int) Vector3.Cross(Vector3.down, transform.up).magnitude == 0) {
             if (Vector3.Dot(Vector3.down, transform.up) > 0f) {
-                DebugMessage($"transform.up is facing the floor");
                 return transform.up;
             } else {
-                DebugMessage($"-transform.up is facing the floor");
                 return -transform.up;
             }
         }
         // Z-axis
         else if ((int) Vector3.Cross(Vector3.down, transform.forward).magnitude == 0) {
             if (Vector3.Dot(Vector3.down, transform.forward) > 0f) {
-                DebugMessage($"transform.forward is facing the floor");
                 return transform.forward;
             } else {
-                DebugMessage($"-transform.forward is facing the floor");
                 return -transform.forward;
             }
         }
@@ -136,6 +149,12 @@ public class QuadCubeMovement : MonoBehaviour {
             Debug.DrawRay(transform.position, transform.right * 2.0f, Color.red);
             Debug.DrawRay(transform.position, transform.up * 2.0f, Color.green);
             Debug.DrawRay(transform.position, transform.forward * 2.0f, Color.blue);
+        }
+    }
+
+    void DebugDrawRay(Vector3 origin, Vector3 direction, float maxDistance = 2.0f) {
+        if (_debugMode) {
+            Debug.DrawRay(origin, direction * maxDistance, Color.red);
         }
     }
 }
