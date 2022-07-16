@@ -115,6 +115,7 @@ public class QuadCubeMovement : MonoBehaviour {
             if (hit.transform.gameObject.name.Equals("SumTileEnter")) {
                 _isInSumState = true;
                 _facesController.StartSumState();
+                Messenger.Broadcast(GameEvent.START_SUM);
             } else if (hit.transform.gameObject.name.Equals("SumTileExit")) {
                 _isInSumState = false;
                 _facesController.StopSumState();
@@ -127,6 +128,7 @@ public class QuadCubeMovement : MonoBehaviour {
                 }
             }
         }
+
 
         _canRaycast = false;
     }
