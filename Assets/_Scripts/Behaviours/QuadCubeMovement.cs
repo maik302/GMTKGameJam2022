@@ -30,6 +30,10 @@ public class QuadCubeMovement : MonoBehaviour {
         if (!_isMoving) {
             HandleMovement();
         }
+
+        if (_canRaycast) {
+            GetFloorTile();
+        }
     }
 
     void HandleMovement() {
@@ -99,9 +103,9 @@ public class QuadCubeMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (_canRaycast) {
-            GetFloorTile();
-        }
+        //if (_canRaycast) {
+        //    GetFloorTile();
+        //}
         //DebugDrawCubeAxis();
     }
 
@@ -117,15 +121,16 @@ public class QuadCubeMovement : MonoBehaviour {
             } else if (hit.transform.gameObject.name.Equals("SumTileExit")) {
                 _isInSumState = false;
                 _facesController.StopSumState();
-            }
-
-            if (_isInSumState && hit.transform.gameObject.name.StartsWith("Tile")) {
-                var tileFaceController = hit.transform.GetComponent<TileFaceController>();
-                if (tileFaceController != null) {
-                    tileFaceController.SetTileType(TileType.Sum);
-
-                    var downwardFace = _facesController.GetDownwardFace();
-                    Messenger<int>.Broadcast(GameEvent.ADD_TO_SUM, downwardFace.GetFaceValue());
+            } else if (_isInSumState && hit.transform.gameObject.name.StartsWith("Tile")) {
+                var tileFaceComponent = hit.transform.GetComponent<TileFace>();
+                if (tileFaceComponent != null) {
+                    if (tileFaceComponent.GetTileType() == TileType.Base) {
+                        tileFaceComponent.SetTileType(TileType.Sum);
+                        var downwardFace = _facesController.GetDownwardFace();
+                        Messenger<int, GameObject>.Broadcast(GameEvent.ADD_TO_SUM, downwardFace.GetFaceValue(), hit.transform.gameObject);
+                    } else if (tileFaceComponent.GetTileType() == TileType.Sum) {
+                        Messenger<GameObject>.Broadcast(GameEvent.REMOVE_FROM_SUM, hit.transform.gameObject);
+                    }
                 }
             }
         }

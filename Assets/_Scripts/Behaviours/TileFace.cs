@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileFaceController : MonoBehaviour {
+public class TileFace : MonoBehaviour {
     [SerializeField]
     private Material _defaultTileMaterial;
 
     [SerializeField]
     private Material _sumTileMaterial;
 
+    private TileType _tileType;
+    private int _scoredPoints;
+
     void Start() {
         SetTileType(TileType.Base);
     }
 
     public void SetTileType(TileType type) {
+        _tileType = type;
         var renderer = GetComponent<Renderer>();
         if (renderer != null) {
             switch (type) {
@@ -25,6 +29,18 @@ public class TileFaceController : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    public TileType GetTileType() {
+        return _tileType;
+    }
+
+    public void SetScoredPoints(int scoredPoints) {
+        _scoredPoints = scoredPoints;
+    }
+
+    public int GetScoredPoints() {
+        return _scoredPoints;
     }
 }
 
