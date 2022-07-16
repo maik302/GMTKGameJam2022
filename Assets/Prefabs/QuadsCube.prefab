@@ -502,6 +502,7 @@ GameObject:
   - component: {fileID: 3755898936609477101}
   - component: {fileID: 3755898936609477100}
   - component: {fileID: 3755898936609477107}
+  - component: {fileID: 2914930593790377631}
   m_Layer: 0
   m_Name: QuadsCube
   m_TagString: Untagged
@@ -579,7 +580,22 @@ MonoBehaviour:
     DownFace: 0
     FrontFace: 0
     BackFace: 0
+  _facesController: {fileID: 2914930593790377631}
   _debugMode: 0
+--- !u!114 &2914930593790377631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755898936609477105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 569084cd6abd63c4e93fd21b8971ecd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultCubeMaterial: {fileID: 2100000, guid: 83739a0439209ed4c856ee4dd4ea1444, type: 2}
+  _sumTileMaterial: {fileID: 2100000, guid: ad54b545bf27b004bb3e8f40eb36d347, type: 2}
 --- !u!1 &3755898936910549743
 GameObject:
   m_ObjectHideFlags: 0

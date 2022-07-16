@@ -7,6 +7,8 @@ public class QuadCubeMovement : MonoBehaviour {
     private float _speed = 300f;
     [SerializeField]
     private FacesData _faces;
+    [SerializeField]
+    private QuadCubeFacesController _facesController;
 
     [SerializeField]
     private bool _debugMode = false;
@@ -14,10 +16,12 @@ public class QuadCubeMovement : MonoBehaviour {
     private bool _canRaycast = false;
     private bool _canMoveInDirection;
     private bool _isMoving;
+    private bool _isInSumState;
 
     void Awake() {
         _canMoveInDirection = false;
         _isMoving = false;
+        _isInSumState = false;
     }
 
     void Update() {
@@ -74,6 +78,7 @@ public class QuadCubeMovement : MonoBehaviour {
             yield return null;
         }
 
+        _canRaycast = true;
         _isMoving = false;
     }
 
@@ -102,6 +107,20 @@ public class QuadCubeMovement : MonoBehaviour {
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity)) {
             DebugMessage($"I hit: {hit.transform.gameObject.name}");
+            if (hit.transform.gameObject.name.Equals("SumTileEnter")) {
+                _isInSumState = true;
+                _facesController.StartSumState();
+            } else if (hit.transform.gameObject.name.Equals("SumTileExit")) {
+                _isInSumState = false;
+                _facesController.StopSumState();
+            }
+
+            if (_isInSumState && hit.transform.gameObject.name.StartsWith("Tile")) {
+                var tileFaceController = hit.transform.GetComponent<TileFaceController>();
+                if (tileFaceController != null) {
+                    tileFaceController.SetTileType(TileType.Sum);
+                }
+            }
         }
 
         _canRaycast = false;
