@@ -83,7 +83,7 @@ public class QuadCubeMovement : MonoBehaviour {
         DebugDrawRay(transform.position, direction, 1f);
         if (Physics.Raycast(transform.position, direction, out hit, 1f)) {
             DebugMessage($"Collider.Tag: {hit.collider.tag}");
-            return hit.collider.CompareTag("Tile");
+            return hit.collider.CompareTag("Tile") || hit.collider.CompareTag("Exit");
         }
 
         return false;
