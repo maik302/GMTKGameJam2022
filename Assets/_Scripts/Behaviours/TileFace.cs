@@ -6,11 +6,15 @@ public class TileFace : MonoBehaviour {
     [SerializeField]
     private Material _defaultTileMaterial;
 
-    [SerializeField]
-    private Material _sumTileMaterial;
+    private const int DEFAULT_SUM_TILES_MANAGER_ID = -1;
 
     private TileType _tileType;
     private int _scoredPoints;
+    private int _sumTilesManagerId;
+
+    private void Awake() {
+        ResetSumTilesManagerId();
+    }
 
     void Start() {
         SetTileType(TileType.Base);
@@ -18,15 +22,10 @@ public class TileFace : MonoBehaviour {
 
     public void SetTileType(TileType type) {
         _tileType = type;
-        var renderer = GetComponent<Renderer>();
-        if (renderer != null) {
-            switch (type) {
-                case TileType.Base:
-                    renderer.material = _defaultTileMaterial;
-                    break;
-                case TileType.Sum:
-                    renderer.material = _sumTileMaterial;
-                    break;
+        if (type == TileType.Base) {
+            var renderer = GetComponent<Renderer>();
+            if (renderer != null) {
+                renderer.material = _defaultTileMaterial;
             }
         }
     }
@@ -41,6 +40,25 @@ public class TileFace : MonoBehaviour {
 
     public int GetScoredPoints() {
         return _scoredPoints;
+    }
+
+    public void SetTileColor(Color color) {
+        var renderer = GetComponent<Renderer>();
+        if (renderer != null) {
+            renderer.material.color = new Color(color.r, color.g, color.b);
+        }
+    }
+
+    public void SetSumTilesManagerId(int id) {
+        _sumTilesManagerId = id;
+    }
+
+    public int GetSumTilesManagerId() {
+        return _sumTilesManagerId;
+    }
+
+    public void ResetSumTilesManagerId() {
+        SetSumTilesManagerId(DEFAULT_SUM_TILES_MANAGER_ID);
     }
 }
 

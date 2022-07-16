@@ -6,8 +6,8 @@ public class QuadCubeFacesController : MonoBehaviour {
     [SerializeField]
     private Color _defaultCubeColor;
 
-    [SerializeField]
-    private Color _sumTileColor;
+    //[SerializeField]
+    //private Color _sumTileColor;
 
     [Space]
     [Header("Faces")]
@@ -57,10 +57,11 @@ public class QuadCubeFacesController : MonoBehaviour {
         _faces.Add(Vector3.back, _backFace);
     }
 
-    public void StartSumState() {
+    public void StartSumState(Color sumTilesColor) {
         var childrenRenderers = transform.GetComponentsInChildren<Renderer>();
         foreach (Renderer childrenRenderer in childrenRenderers) {
-            childrenRenderer.material.color = _sumTileColor;
+            var previousColor = childrenRenderer.material.color;
+            childrenRenderer.material.color = new Color(sumTilesColor.r, sumTilesColor.g, sumTilesColor.b, previousColor.a);
         }
     }
 

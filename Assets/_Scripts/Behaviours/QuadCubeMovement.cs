@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class QuadCubeMovement : MonoBehaviour {
+
+    private const int DEFAULT_SUM_TILES_MANAGER_ID = -1;
+
     [SerializeField]
     private float _speed = 300f;
     [SerializeField]
@@ -15,6 +18,7 @@ public class QuadCubeMovement : MonoBehaviour {
     private bool _canMoveInDirection;
     private bool _isMoving;
     private bool _isInSumState;
+    private int _activeSumTilesManagerId;
 
     void Awake() {
         _canMoveInDirection = false;
@@ -107,23 +111,46 @@ public class QuadCubeMovement : MonoBehaviour {
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity)) {
             DebugMessage($"I hit: {hit.transform.gameObject.name}");
+            // Entering the EnterDoor
             if (hit.transform.gameObject.name.Equals("SumTileEnter")) {
                 _isInSumState = true;
-                _facesController.StartSumState();
-                Messenger.Broadcast(GameEvent.START_SUM);
-            } else if (hit.transform.gameObject.name.Equals("SumTileExit")) {
+                var sumTileDoorComponent = hit.transform.GetComponent<SumTileDoor>();
+                if (sumTileDoorComponent != null) {
+                    _facesController.StartSumState(sumTileDoorComponent.GetDoorColor());
+                    _activeSumTilesManagerId = sumTileDoorComponent.GetSumTilesManagerId();
+                    Messenger<int>.Broadcast(GameEvent.START_SUM, _activeSumTilesManagerId);
+
+                }
+            } 
+            // Entering the ExitDoor
+            else if (hit.transform.gameObject.name.Equals("SumTileExit")) {
                 _isInSumState = false;
                 _facesController.StopSumState();
-                Messenger.Broadcast(GameEvent.END_SUM);
-            } else if (_isInSumState && hit.transform.gameObject.name.StartsWith("Tile")) {
+                var sumTileDoorComponent = hit.transform.GetComponent<SumTileDoor>();
+                if (sumTileDoorComponent != null) {
+                    Messenger<int>.Broadcast(GameEvent.END_SUM, sumTileDoorComponent.GetSumTilesManagerId());
+                    _activeSumTilesManagerId = DEFAULT_SUM_TILES_MANAGER_ID;
+                }
+            } 
+            // Moving on the board tiles
+            else if (_isInSumState && hit.transform.gameObject.name.StartsWith("Tile")) {
                 var tileFaceComponent = hit.transform.GetComponent<TileFace>();
                 if (tileFaceComponent != null) {
+                    var downwardFace = _facesController.GetDownwardFace();
+                    // Add points to the track/path
                     if (tileFaceComponent.GetTileType() == TileType.Base) {
-                        tileFaceComponent.SetTileType(TileType.Sum);
-                        var downwardFace = _facesController.GetDownwardFace();
-                        Messenger<int, GameObject>.Broadcast(GameEvent.ADD_TO_SUM, downwardFace.GetFaceValue(), hit.transform.gameObject);
-                    } else if (tileFaceComponent.GetTileType() == TileType.Sum) {
-                        Messenger<GameObject>.Broadcast(GameEvent.REMOVE_FROM_SUM, hit.transform.gameObject);
+                        Messenger<int, int, GameObject>.Broadcast(GameEvent.ADD_TO_SUM, _activeSumTilesManagerId, downwardFace.GetFaceValue(), hit.transform.gameObject);
+                    }
+                    // Remove points from the track
+                    else if (tileFaceComponent.GetTileType() == TileType.Sum) {
+                        // If the player is on a track from another SumTilesManager, reset it
+                        var downTileSumTilesManagerId = tileFaceComponent.GetSumTilesManagerId();
+                        if (downTileSumTilesManagerId != _activeSumTilesManagerId) {
+                            Messenger<int>.Broadcast(GameEvent.RESET_SUM, downTileSumTilesManagerId);
+                            Messenger<int, int, GameObject>.Broadcast(GameEvent.ADD_TO_SUM, _activeSumTilesManagerId, downwardFace.GetFaceValue(), hit.transform.gameObject);
+                        }
+
+                        Messenger<int, GameObject>.Broadcast(GameEvent.REMOVE_FROM_SUM, tileFaceComponent.GetSumTilesManagerId(), hit.transform.gameObject);
                     }
                 }
             }
