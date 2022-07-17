@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.6
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -1315,6 +1315,7 @@ MonoBehaviour:
   _star3Image: {fileID: 6858399594106050715}
   _emptyStarSprite: {fileID: 21300000, guid: 9f047e217b7b9d14198c2cb964ba9352, type: 3}
   _filledStarSprite: {fileID: 21300000, guid: 26e9a4aab78d970409e763dc6bdce670, type: 3}
+  _nextLevelName: 
 --- !u!1 &6858399594345455841
 GameObject:
   m_ObjectHideFlags: 0

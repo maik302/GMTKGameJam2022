@@ -67,14 +67,15 @@ public class LevelSelectorController : MonoBehaviour {
                     star3.sprite = _emptyStarSprite;
                     break;
             }
+        } else if (level != 0) {
+            star1.color = new Color(star1.color.r, star1.color.g, star1.color.b, .5f);
+            star2.color = new Color(star2.color.r, star2.color.g, star2.color.b, .5f);
+            star3.color = new Color(star3.color.r, star3.color.g, star3.color.b, .5f);
         }
     }
 
     public void LoadLevel1() {
-        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(0)), -1);
-        if (starsScored >= 0) {
-            SceneManager.LoadScene("Level0");
-        }
+        SceneManager.LoadScene("Level0");
     }
 
     public void LoadLevel2() {
