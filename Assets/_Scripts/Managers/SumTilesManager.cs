@@ -129,6 +129,8 @@ public class SumTilesManager : MonoBehaviour, IChallenge {
 
     public void RemoveTilesFromScorePath(int sumTilesManagerId, GameObject tileEntryPoint) {
         if (sumTilesManagerId == GetInstanceID()) {
+            AudioManager.Instance.Play("SFXRemoveFromSum");
+
             var tileEntryPointIndex = _scoredTilesPath.FindIndex(tile => tile.GetInstanceID() == tileEntryPoint.GetInstanceID());
 
             for (int i = tileEntryPointIndex + 1; i < _scoredTilesPath.Count; i++) {
@@ -155,8 +157,10 @@ public class SumTilesManager : MonoBehaviour, IChallenge {
             var exitDoor = _exitDoor.GetComponent<SumTileDoor>();
             if (exitDoor != null && _isScoringPoints) {
                 if (_remainingPoints > 0) {
+                    AudioManager.Instance.Play("SFXFinishSumFailure");
                     exitDoor.ChangeTextColor(new Color(_notEnoughPointsColor.r, _notEnoughPointsColor.g, _notEnoughPointsColor.b));
                 } else {
+                    AudioManager.Instance.Play("SFXFinishSumSuccess");
                     exitDoor.ChangeTextColor(new Color(_enoughPointsColor.r, _enoughPointsColor.g, _enoughPointsColor.b));
                 }
             }

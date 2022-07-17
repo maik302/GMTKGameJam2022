@@ -14,9 +14,13 @@ public class ExitDoor : MonoBehaviour {
     private List<SumTilesManager> _challenges;
 
     private bool _areAllChallengesCompleted;
+    private bool _exitDoorHasBeenOpened;
+    private bool _exitDoorHasBeenClosed;
 
     private void Awake() {
         _areAllChallengesCompleted = false;
+        _exitDoorHasBeenOpened = false;
+        _exitDoorHasBeenClosed = true;
     }
 
     void Start() {
@@ -42,10 +46,20 @@ public class ExitDoor : MonoBehaviour {
     }
 
     void OpenExitDoor() {
+        if (!_exitDoorHasBeenOpened) {
+            AudioManager.Instance.Play("SFXOpenExitDoor");
+            _exitDoorHasBeenOpened = true;
+            _exitDoorHasBeenClosed = false;
+        }
         ChangeDoorColor(_exitDoorOpenedColor);
     }
 
     void CloseExitDoor() {
+        if (!_exitDoorHasBeenClosed) {
+            AudioManager.Instance.Play("SFXCloseExitDoor");
+            _exitDoorHasBeenClosed = true;
+            _exitDoorHasBeenOpened = false;
+        }
         ChangeDoorColor(_exitDoorClosedColor);
     }
 

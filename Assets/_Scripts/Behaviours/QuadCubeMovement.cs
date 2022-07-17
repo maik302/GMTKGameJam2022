@@ -119,9 +119,13 @@ public class QuadCubeMovement : MonoBehaviour {
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity)) {
             DebugMessage($"I hit: {hit.transform.gameObject.name}");
+            AudioManager.Instance.Play("SFXStep");
+            
             // Entering the SumTile EnterDoor
             if (hit.transform.gameObject.name.Equals("SumTileEnter")) {
                 _isInSumState = true;
+                AudioManager.Instance.Play("SFXStartSum");
+
                 var sumTileDoorComponent = hit.transform.GetComponent<SumTileDoor>();
                 if (sumTileDoorComponent != null) {
                     _facesController.StartSumState(sumTileDoorComponent.GetDoorColor());
@@ -140,7 +144,7 @@ public class QuadCubeMovement : MonoBehaviour {
                     _activeSumTilesManagerId = DEFAULT_SUM_TILES_MANAGER_ID;
                 }
             } 
-            // Moving on the board tiles
+            // Moving on the board tiles while adding to the SumTile
             else if (_isInSumState && hit.transform.gameObject.name.StartsWith("Tile")) {
                 var tileFaceComponent = hit.transform.GetComponent<TileFace>();
                 if (tileFaceComponent != null) {
