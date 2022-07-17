@@ -31,6 +31,13 @@ public class SumTileDoor : MonoBehaviour {
         if (renderer != null) {
             renderer.material.color = _doorColor;
         }
+
+        var childrenRenderers = transform.GetComponentsInChildren<Renderer>();
+        foreach (Renderer childRenderer in childrenRenderers) {
+            if (childRenderer != null) {
+                childRenderer.material.color = _doorColor;
+            }
+        }
     }
 
     public Color GetDoorColor() {

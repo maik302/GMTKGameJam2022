@@ -27,6 +27,13 @@ public class TileFace : MonoBehaviour {
             if (renderer != null) {
                 renderer.material = _defaultTileMaterial;
             }
+
+            var childrenRenderers = transform.GetComponentsInChildren<Renderer>();
+            foreach (Renderer childRenderer in childrenRenderers) {
+                if (childRenderer != null) {
+                    childRenderer.material = _defaultTileMaterial;
+                }
+            }
         }
     }
 
@@ -46,6 +53,13 @@ public class TileFace : MonoBehaviour {
         var renderer = GetComponent<Renderer>();
         if (renderer != null) {
             renderer.material.color = new Color(color.r, color.g, color.b);
+        }
+
+        var childrenRenderers = transform.GetComponentsInChildren<Renderer>();
+        foreach (Renderer childRenderer in childrenRenderers) {
+            if (childRenderer != null) {
+                childRenderer.material.color = new Color(color.r, color.g, color.b);
+            }
         }
     }
 
