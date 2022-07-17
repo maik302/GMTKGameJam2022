@@ -165,9 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _exitDoorOpenedColor: {r: 0.044499747, g: 0.7075472, b: 0.4189265, a: 0}
   _exitDoorClosedColor: {r: 0.8396226, g: 0.052806363, b: 0.052806363, a: 0}
-  _challenges:
-  - {fileID: 0}
-  - {fileID: 0}
+  _challenges: []
 --- !u!1 &1893434482375146538
 GameObject:
   m_ObjectHideFlags: 0

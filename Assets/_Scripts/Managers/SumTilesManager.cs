@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 public class SumTilesManager : MonoBehaviour, IChallenge {
-    private const int MAX_SCORABLE_POINTS = 100;
+    private const int MAX_SCORABLE_POINTS = 500;
 
     [Header("Configuration")]
     [SerializeField]

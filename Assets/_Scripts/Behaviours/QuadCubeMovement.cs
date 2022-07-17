@@ -123,11 +123,15 @@ public class QuadCubeMovement : MonoBehaviour {
             
             // Entering the SumTile EnterDoor
             if (hit.transform.gameObject.name.Equals("SumTileEnter")) {
-                _isInSumState = true;
-                AudioManager.Instance.Play("SFXStartSum");
-
                 var sumTileDoorComponent = hit.transform.GetComponent<SumTileDoor>();
                 if (sumTileDoorComponent != null) {
+                    // Check whether the players was already in a Sum track
+                    if (_isInSumState) {
+                        Messenger<int, GameObject>.Broadcast(GameEvent.REMOVE_FROM_SUM, _activeSumTilesManagerId, hit.transform.gameObject);
+                    }
+                    _isInSumState = true;
+                    AudioManager.Instance.Play("SFXStartSum");
+
                     _facesController.StartSumState(sumTileDoorComponent.GetDoorColor());
                     _activeSumTilesManagerId = sumTileDoorComponent.GetSumTilesManagerId();
                     Messenger<int>.Broadcast(GameEvent.START_SUM, _activeSumTilesManagerId);
