@@ -5,9 +5,6 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour {
 
-    [SerializeField]
-    private float _fadeScaledRate = .1f;
-
     // SINGLETON
     public static AudioManager Instance;
 

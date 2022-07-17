@@ -319,7 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331d687118200674cb36d4df3eadc8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeScaledRate: 1
   Sounds:
   - name: SFXCloseExitDoor
     audioClip: {fileID: 8300000, guid: 9b756d8b63c3eed479d3d1ee52beec27, type: 3}
@@ -327,60 +326,80 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 0
   - name: SFXFinishSumFailure
     audioClip: {fileID: 8300000, guid: 2e71c87f7365bfc4f90fcc60119dd154, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 0
   - name: SFXFinishSumSuccess
     audioClip: {fileID: 8300000, guid: b53c000acf1ae6b44a8962adc3e61e98, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 0
   - name: SFXOpenExitDoor
     audioClip: {fileID: 8300000, guid: 8a3e9923b4a32914ca789f7820e4c2fa, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 0
   - name: SFXRemoveFromSum
     audioClip: {fileID: 8300000, guid: 813aeffdbc3f2a142b8d72575d0fe862, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 0
   - name: SFXStartSum
     audioClip: {fileID: 8300000, guid: 85148398b72939944a4291ddf51255bd, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 0
   - name: SFXStep
     audioClip: {fileID: 8300000, guid: 172fec2b5389de94686d0ac53d919531, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 0
   - name: MusicMenu
     audioClip: {fileID: 8300000, guid: cf772cf3949fa39468efd672450ce9ca, type: 3}
     volume: 0.2
     pitch: 1
     loop: 1
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 1
   - name: MusicBasicLevels
     audioClip: {fileID: 8300000, guid: 612a37c3b8925e045b4612fd857463bd, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 1
   - name: MusicDifficultLevels
     audioClip: {fileID: 8300000, guid: fcb7bd0f27907b848a417c8d5b0fd06f, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 0
+    loop: 1
     audioSource: {fileID: 0}
+    isPlaying: 0
+    isBGM: 1
 --- !u!1 &230864098
 GameObject:
   m_ObjectHideFlags: 0

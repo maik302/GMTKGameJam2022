@@ -18,6 +18,9 @@ public class LevelResultsController : MonoBehaviour {
     [SerializeField]
     private Sprite _filledStarSprite;
 
+    [SerializeField]
+    private string _nextLevelName;
+
     void Start() {
         Time.timeScale = 0f;
         SetScoredStars();
@@ -50,10 +53,12 @@ public class LevelResultsController : MonoBehaviour {
     }
 
     public void GoToLevelSelect() {
-        Debug.Log("I've pressed level select!");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void GoToNextLevel() {
-        Debug.Log("I've pressed next!");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(_nextLevelName);
     }
 }
