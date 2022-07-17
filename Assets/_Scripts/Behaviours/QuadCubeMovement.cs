@@ -169,7 +169,6 @@ public class QuadCubeMovement : MonoBehaviour {
             // Level Exit Door
             else if (hit.transform.gameObject.name.Equals("Exit")) {
                 Messenger.Broadcast(GameEvent.LEVEL_COMPLETED);
-                Debug.Log("I've brodcasted LEVEL_COMPLETED!");
             }
         }
 

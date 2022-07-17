@@ -31,13 +31,23 @@ public class AudioManager : MonoBehaviour {
             sound.audioSource.volume = sound.volume;
             sound.audioSource.pitch = sound.pitch;
             sound.audioSource.loop = sound.loop;
+            sound.isPlaying = false;
 		}
     }
 
 	public void Play(string name) {
         Sound sound = Array.Find(Sounds, s => s.name == name);
         if (sound != null) {
+            // Stop any background music that is playing
+            if (sound.isBGM) {
+                Sound playingBGM = Array.Find(Sounds, s => s.isBGM && s.isPlaying);
+                if (playingBGM != null) {
+                    Stop(playingBGM.name);
+                }
+            }
+
             sound.audioSource.Play();
+            sound.isPlaying = true;
         }
 	}
 
@@ -45,40 +55,7 @@ public class AudioManager : MonoBehaviour {
         Sound sound = Array.Find(Sounds, s => s.name == name);
         if (sound != null) {
             sound.audioSource.Stop();
+            sound.isPlaying = false;
         }
-    }
-
-    public void PlayWithFadeIn(string name) {
-        Sound sound = Array.Find(Sounds, s => s.name == name);
-        if (sound != null) {
-            PlayWithFade(sound);
-        }
-    }
-
-    private IEnumerator PlayWithFade(Sound sound) {
-        sound.audioSource.volume = 0;
-        sound.audioSource.Play();
-
-        while (sound.audioSource.volume < sound.volume) {
-            sound.audioSource.volume += _fadeScaledRate * Time.deltaTime;
-
-            yield return null;
-        }
-    }
-
-    public void StopWithFadeOut(string name) {
-        Sound sound = Array.Find(Sounds, s => s.name == name);
-        if (sound != null) {
-            StopWithFade(sound);
-        }
-    }
-
-    private IEnumerator StopWithFade(Sound sound) {
-        while (sound.audioSource.volume > 0) {
-            sound.audioSource.volume -= _fadeScaledRate * Time.deltaTime;
-
-            yield return null;
-        }
-        sound.audioSource.Stop();
     }
 }

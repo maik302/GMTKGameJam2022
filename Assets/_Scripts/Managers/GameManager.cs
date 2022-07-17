@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour {
     private int _levelId;
     [SerializeField]
     private GameObject _resultsScreenCanvas;
+    [SerializeField]
+    private string _bgmName;
 
     [Header("Level score configuration")]
     [SerializeField]
@@ -28,6 +30,10 @@ public class GameManager : MonoBehaviour {
         if (Instance == null) {
             Instance = this;
         }
+    }
+
+    void Start() {
+        AudioManager.Instance.Play(_bgmName);
     }
 
     void ShowLevelResults() {

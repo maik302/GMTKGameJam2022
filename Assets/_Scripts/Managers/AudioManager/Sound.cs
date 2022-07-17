@@ -19,4 +19,9 @@ public class Sound {
 	[HideInInspector]
 	public AudioSource audioSource;
 
+    [HideInInspector]
+	public bool isPlaying;
+
+	public bool isBGM;
+
 }
