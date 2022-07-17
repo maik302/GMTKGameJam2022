@@ -5,18 +5,51 @@ using System.Linq;
 
 public class ExitDoor : MonoBehaviour {
 
-    [SerializeField, SerializeReference]
+    [SerializeField]
+    private Color _exitDoorOpenedColor;
+    [SerializeField]
+    private Color _exitDoorClosedColor;
+
+    [SerializeField]
     private List<SumTilesManager> _challenges;
 
-    // Start is called before the first frame update
-    void Start() {
-        
+    private bool _areAllChallengesCompleted;
+
+    private void Awake() {
+        _areAllChallengesCompleted = false;
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (_challenges.All(challenge => challenge.GetScoreReport().IsSolved())) {
-            Debug.Log("The exit door is open!");
+    void Start() {
+        CloseExitDoor();
+    }
+
+    void ChangeDoorColor(Color color) {
+        var childrenRenderers = transform.GetComponentsInChildren<Renderer>();
+        foreach (Renderer childrenRenderer in childrenRenderers) {
+            var previousColor = childrenRenderer.material.color;
+            childrenRenderer.material.color = new Color(color.r, color.g, color.b, previousColor.a);
         }
+    }
+
+    void Update() {
+        _areAllChallengesCompleted = _challenges.All(challenge => challenge.GetScoreReport().IsSolved());
+
+        if (_areAllChallengesCompleted) {
+            OpenExitDoor();
+        } else {
+            CloseExitDoor();
+        }
+    }
+
+    void OpenExitDoor() {
+        ChangeDoorColor(_exitDoorOpenedColor);
+    }
+
+    void CloseExitDoor() {
+        ChangeDoorColor(_exitDoorClosedColor);
+    }
+
+    public bool IsDoorOpen() {
+        return _areAllChallengesCompleted;
     }
 }

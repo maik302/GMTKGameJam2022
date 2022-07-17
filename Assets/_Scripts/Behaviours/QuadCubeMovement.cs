@@ -100,7 +100,15 @@ public class QuadCubeMovement : MonoBehaviour {
         DebugDrawRay(transform.position, direction, 1f);
         if (Physics.Raycast(transform.position, direction, out hit, 1f)) {
             DebugMessage($"Collider.Tag: {hit.collider.tag}");
-            return hit.collider.CompareTag("Tile") || hit.collider.CompareTag("Exit");
+
+            if (hit.collider.CompareTag("Exit")) {
+                var exitDoor = hit.transform.GetComponent<ExitDoor>();
+                if (exitDoor != null) {
+                    return exitDoor.IsDoorOpen();
+                }
+            } else {
+                return hit.collider.CompareTag("Tile");
+            }
         }
 
         return false;
@@ -111,7 +119,7 @@ public class QuadCubeMovement : MonoBehaviour {
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity)) {
             DebugMessage($"I hit: {hit.transform.gameObject.name}");
-            // Entering the EnterDoor
+            // Entering the SumTile EnterDoor
             if (hit.transform.gameObject.name.Equals("SumTileEnter")) {
                 _isInSumState = true;
                 var sumTileDoorComponent = hit.transform.GetComponent<SumTileDoor>();
@@ -122,7 +130,7 @@ public class QuadCubeMovement : MonoBehaviour {
 
                 }
             } 
-            // Entering the ExitDoor
+            // Entering the SumeTile ExitDoor
             else if (hit.transform.gameObject.name.Equals("SumTileExit")) {
                 _isInSumState = false;
                 _facesController.StopSumState();
@@ -153,6 +161,11 @@ public class QuadCubeMovement : MonoBehaviour {
                         Messenger<int, GameObject>.Broadcast(GameEvent.REMOVE_FROM_SUM, tileFaceComponent.GetSumTilesManagerId(), hit.transform.gameObject);
                     }
                 }
+            }
+            // Level Exit Door
+            else if (hit.transform.gameObject.name.Equals("Exit")) {
+                Messenger.Broadcast(GameEvent.LEVEL_COMPLETED);
+                Debug.Log("I've brodcasted LEVEL_COMPLETED!");
             }
         }
 

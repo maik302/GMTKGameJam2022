@@ -126,4 +126,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultTileMaterial: {fileID: 2100000, guid: 83739a0439209ed4c856ee4dd4ea1444, type: 2}
-  _sumTileMaterial: {fileID: 2100000, guid: ad54b545bf27b004bb3e8f40eb36d347, type: 2}
