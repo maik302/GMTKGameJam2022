@@ -948,19 +948,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultCubeColor: {r: 1, g: 1, b: 1, a: 0}
-  _sumTileColor: {r: 0.043137256, g: 0.654902, b: 0.81960785, a: 0}
   _rightFace: {fileID: 3755898935850446605}
   _leftFace: {fileID: 3755898935398090850}
   _upFace: {fileID: 3755898935719723691}
   _downFace: {fileID: 3755898936910549743}
   _frontFace: {fileID: 3755898936012434594}
   _backFace: {fileID: 3755898935806981505}
-  _rightFaceTexture: {fileID: 2800000, guid: 7005395d160c3e34daf61579351ee0ef, type: 3}
-  _leftFaceTexture: {fileID: 2800000, guid: 7e3822dbd48e810439329a388abb4e4a, type: 3}
-  _upFaceTexture: {fileID: 2800000, guid: 5cbf849783562a74bb018b8b998c01f1, type: 3}
-  _downFaceTexture: {fileID: 2800000, guid: 37564f863d9f92e44940fd8a29eacadd, type: 3}
-  _frontFaceTexture: {fileID: 2800000, guid: 45ab604d4fbad02468395be911f5732c, type: 3}
-  _backFaceTexture: {fileID: 2800000, guid: 739a7c7d4a47c2e4e9d3e8b08bdae33b, type: 3}
   _parentLookaheadContainer: {fileID: 577262668008987741}
   _rightLookahead: {fileID: 122086214122080291}
   _leftLookahead: {fileID: 242662009610646461}
