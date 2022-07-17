@@ -12,4 +12,8 @@ public class MainMenuController : MonoBehaviour {
     public void Play() {
         Debug.Log("I've pressed play!");
     }
+
+    public void GoToTitleScreen() {
+        Debug.Log("I've pressed go to title screen!");
+    }
 }
