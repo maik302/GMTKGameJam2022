@@ -52,4 +52,10 @@ public class ExitDoor : MonoBehaviour {
     public bool IsDoorOpen() {
         return _areAllChallengesCompleted;
     }
+
+    public List<(int expectedPointsToScore, int scoredPoints)> GetChallengesScoreData() {
+        List<(int, int)> scoresData = new List<(int, int)>();
+
+        return _challenges.Select(challenge => challenge.GetScoreData()).ToList();
+    }
 }

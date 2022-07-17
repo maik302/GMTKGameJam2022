@@ -175,4 +175,8 @@ public class SumTilesManager : MonoBehaviour, IChallenge {
             ResetDoorsTextFormat();
         }
     }
+
+    public (int expectedPointsToScore, int scoredPoints) GetScoreData() {
+        return (expectedPointsToScore: _pointsToScore, scoredPoints: _scoredPoints >= MAX_SCORABLE_POINTS ? MAX_SCORABLE_POINTS : _scoredPoints);
+    }
 }
