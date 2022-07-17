@@ -79,35 +79,35 @@ public class LevelSelectorController : MonoBehaviour {
     }
 
     public void LoadLevel2() {
-        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(0)), -1);
+        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(1)), -1);
         if (starsScored >= 0) {
             SceneManager.LoadScene("Level1");
         }
     }
 
     public void LoadLevel3() {
-        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(0)), -1);
+        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(2)), -1);
         if (starsScored >= 0) {
             SceneManager.LoadScene("Level2");
         }
     }
 
     public void LoadLevel4() {
-        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(0)), -1);
+        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(3)), -1);
         if (starsScored >= 0) {
             SceneManager.LoadScene("Level3");
         }
     }
 
     public void LoadLevel5() {
-        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(0)), -1);
+        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(4)), -1);
         if (starsScored >= 0) {
             SceneManager.LoadScene("Level4");
         }
     }
 
     public void LoadLevel6() {
-        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(0)), -1);
+        var starsScored = PlayerPrefs.GetInt((DataPrefs.GenerateLevelKey(5)), -1);
         if (starsScored >= 0) {
             SceneManager.LoadScene("Level5");
         }

@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+        PlayerPrefs.SetInt(DataPrefs.GenerateLevelKey(_levelId), 0);
         AudioManager.Instance.Play(_bgmName);
     }
 
